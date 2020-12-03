@@ -13,8 +13,7 @@ public class Solver implements SudokuSolver {
 
 	@Override
 	public boolean trySetNumber(int row, int col, int number) {
-		
-        return false;
+        return isLegal(row,col,number);
 	}
 
 	@Override
@@ -37,7 +36,7 @@ public class Solver implements SudokuSolver {
 	public boolean solve() {
         //for (int i = 0; i < 9; i++) {
         //    for (int j = 0; j < 9; j++) {
-        if (grid[i][j] == 0)
+        if (grid[0][0] == 0)
             	    return solve(0,0);
          //   	}
         //}
@@ -45,17 +44,36 @@ public class Solver implements SudokuSolver {
 	}
 
     private boolean solve(int i, int j) {
-    	for (int number = 1; number <= 9; number++) {
+    	int currNumber = grid[i][j] +1;
+    	for (int number = currNumber; number <= 9; number++) {
+    		int nexti = i+1;
+    		int nextj = j+1;
     		if(isLegal(i,j, number)) {
     			grid[i][j] = number;
-                int nexti = i+1;
-                int nextj = j+1;
-    			return solve(i+1, j+1);
-                
-
+    			if(nexti > 8 && nextj > 8) {
+    				return true;
+    			}
+    			if(nexti > 8 && nextj < 8) {
+    				solve(0,nextj);
+    			}
+    			else if(nexti < 8){
+    				solve(nexti, j);
+    			}
+    			return false;
     		}
     	}
-        return false;
+    	if(grid[0][0] != 0) {
+    		return false;    		
+    	}
+    	else {
+    		if(i > 0) {
+    			solve(i-1,j);
+    		}
+    		else {
+    			solve(9,j-1);
+    		}
+    	}
+    	return false;
     }
 
     private boolean checkRow(int row, int number) {
