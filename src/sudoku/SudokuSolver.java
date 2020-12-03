@@ -1,3 +1,5 @@
+package sudoku;
+
 public interface SudokuSolver {
 	/**
 	 * Sets the digit number in the box row, col.

@@ -1,4 +1,5 @@
-import java.awt.BorderLayout;
+package sudoku;
+
 import javax.swing.*;
 
 

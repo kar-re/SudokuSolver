@@ -1,3 +1,4 @@
+package sudoku;
 
 public class Solver implements SudokuSolver {
 	private int[][] grid;

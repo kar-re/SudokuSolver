@@ -1,3 +1,5 @@
+package sudoku;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -5,7 +7,7 @@ import java.awt.*;
 public class SudokuView {
 
     public SudokuView() {
-        SwingUtilities.invokeLater(() -> createWindow( "Sudoku Solver", 540, 960));
+        SwingUtilities.invokeLater(() -> createWindow( "sudoku.Sudoku sudoku.Solver", 540, 960));
     }
     private void createWindow(String title, int width, int height) {
         JFrame frame = new JFrame(title);
@@ -22,7 +24,7 @@ public class SudokuView {
         JPanel mainPanel = new JPanel();
         JLabel titleFrame = new JLabel();
         titleFrame.setBorder(BorderFactory.createEmptyBorder( 0,  20,  0,  0));
-        titleFrame.setText("Sudoku solver");
+        titleFrame.setText("sudoku.Sudoku solver");
         titleFrame.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 36));
         titleFrame.setPreferredSize(new Dimension(width, 50));
 
