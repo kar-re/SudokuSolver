@@ -44,7 +44,7 @@ public class SudokuView {
                 inputFields[i][k].setBackground(Color.WHITE);
                 inputFields[i][k].setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(innerBorder, 1),BorderFactory.createMatteBorder(3, 3, 3, 3, bgColor)));
                 inputFields[i][k].setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 24));
-                inputFields[i][k].setText("0");
+                inputFields[i][k].setText(" ");
                 inputFields[i][k].setEditable(true);
                 panelsTop[i].add(inputFields[i][k]);
             }
