@@ -4,6 +4,9 @@ import javax.swing.*;
 
 
 public class SudokuApplication {
+    private static SudokuController controller;
+    private static SudokuModel model;
+    private static SudokuView view;
     public static void main(String[] args) {
         try {
             /* Use an appropriate Look and Feel */
@@ -11,7 +14,9 @@ public class SudokuApplication {
         } catch (Exception ex) {
 
         }
-        SudokuView view = new SudokuView();
+        model = new SudokuModel();
+        view = new SudokuView();
+        controller = new SudokuController(view, model);
 
     }
 }

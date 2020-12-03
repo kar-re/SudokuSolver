@@ -3,14 +3,22 @@ package sudoku;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 public class SudokuView {
 
+    private JButton solve, clear;
+    private SudokuGrid grid;
+    private JFrame frame;
+
     public SudokuView() {
-        SwingUtilities.invokeLater(() -> createWindow( "sudoku.Sudoku sudoku.Solver", 540, 960));
+        SwingUtilities.invokeLater(() -> createWindow( "Sudoku Solver", 540, 680));
     }
     private void createWindow(String title, int width, int height) {
-        JFrame frame = new JFrame(title);
+        frame = new JFrame(title);
         //Ny JFrame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container pane = frame.getContentPane();
@@ -21,39 +29,70 @@ public class SudokuView {
         frame.setPreferredSize(new Dimension(width, height));
         frame.setResizable(true);
         JPanel mainPanel = new JPanel();
+
         JLabel titleFrame = new JLabel();
         titleFrame.setBorder(BorderFactory.createEmptyBorder( 0,  20,  0,  0));
-        titleFrame.setText("sudoku.Sudoku solver");
+        titleFrame.setText("Sudoku solver");
         titleFrame.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 36));
-        titleFrame.setPreferredSize(new Dimension(width, 50));
+        //titleFrame.setPreferredSize(new Dimension(frame.getWidth(), 50));
+        System.out.println(frame.getWidth());
 
         mainPanel.add(titleFrame, BorderLayout.PAGE_START);
         mainPanel.setBackground( bgColor);
-        JPanel sudokuPanel = new JPanel();
+        grid = new SudokuGrid();
+        //sudokuPanel.setPreferredSize(frame.getPreferredSize());
 
 
-        mainPanel.add(sudokuPanel,  BorderLayout.CENTER);
+        mainPanel.add(grid,  BorderLayout.CENTER);
 
 
         JPanel buttons = new JPanel();
         buttons.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
-        JButton solve = new JButton();
-        JButton clear = new JButton();
+        solve = new JButton();
+        clear = new JButton();
         buttons.add(solve);
         buttons.add(clear);
         solve.setText("Solve");
         clear.setText("Clear");
+        //buttons.setPreferredSize(new Dimension(frame.getWidth() - 30, 30));
         mainPanel.setLayout(new FlowLayout());
         mainPanel.add(buttons, BorderLayout.SOUTH);
 
-        frame.add(mainPanel);
+
+
 
         //Lite extra, valde att sätta en preferred size och resizable false
 
 
+        frame.setContentPane(mainPanel);
         frame.pack();
         frame.setVisible(true);
     }
+
+    public JButton getSolveButton() {
+        return solve;
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public JButton getClearButton() {
+        return clear;
+    }
+
+    public void setNumberGrid(int row, int col, int number) {
+        grid.setNumber(row, col, number);
+    }
+    public JTextField[][] getNumberGrid() {
+        return grid.getGrid();
+    }
+
+    public void showErrorMessage(String error) {
+        JOptionPane.showMessageDialog(frame, error);
+    }
+
+
 /*
     void oldstuff() {
         //Gör en sortedlistmodel med listan från GWC

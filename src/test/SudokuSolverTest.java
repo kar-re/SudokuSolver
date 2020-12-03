@@ -3,6 +3,8 @@ package test;
 import static org.junit.jupiter.api.Assertions.*;
 import sudoku.*;
 
+import java.util.Arrays;
+
 class SudokuSolverTest {
     private int[][] sudokuBasic = {
             {8,6,0,0,2,0,0,0,0},
@@ -46,8 +48,8 @@ class SudokuSolverTest {
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
-        solver = new Solver(sudokuBasic);
-        solverHard = new Solver(sudokuHard);
+        solver = new SolverAlt(sudokuBasic);
+        solverHard = new SolverAlt(sudokuHard);
 
     }
 
@@ -68,6 +70,7 @@ class SudokuSolverTest {
 
     @org.junit.jupiter.api.Test
     void getNumber() {
+        solver.setNumber(4,0,2);
         assertEquals(Integer.valueOf(2), solver.getNumber(4,0));
     }
 
@@ -80,7 +83,7 @@ class SudokuSolverTest {
     @org.junit.jupiter.api.Test
     void clear() {
         solver.clear();
-        assertEquals(solver.getNumbers(), new int[9][9]);
+        assertTrue(Arrays.deepEquals(solver.getNumbers(),new int[9][9]), "Didn't clear properly!");
     }
 
     @org.junit.jupiter.api.Test
@@ -102,7 +105,8 @@ class SudokuSolverTest {
         }
         System.out.println(sudokuSolved);
         System.out.println(solverHard.getNumbers());
-        assertEquals(solverHard.getNumbers(), sudokuSolved);
+        assertTrue(Arrays.deepEquals(solverHard.getNumbers(),sudokuSolved), "Didn't solve correctly!");
+
     }
 
     @org.junit.jupiter.api.Test
