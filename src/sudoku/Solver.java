@@ -2,8 +2,10 @@ package sudoku;
 
 public class Solver implements SudokuSolver {
 	private int[][] grid;
+	private int[][] unsolvedGrid;
 	public Solver(int[][] grid) {
 		this.grid = grid;
+		this.unsolvedGrid = grid;
 	}
 	@Override
 	public void setNumber(int row, int col, int number) {
@@ -48,7 +50,7 @@ public class Solver implements SudokuSolver {
     	for (int number = currNumber; number <= 9; number++) {
     		int nexti = i+1;
     		int nextj = j+1;
-    		if(isLegal(i,j, number)) {
+    		if(isLegal(i,j, number) && unsolvedGrid[i][j] == 0) {
     			grid[i][j] = number;
     			if(nexti > 8 && nextj > 8) {
     				return true;
