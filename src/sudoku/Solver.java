@@ -38,34 +38,58 @@ public class Solver implements SudokuSolver {
 
 	@Override
 	public boolean solve() {
-		return solve(0, 0);
+		//ska bara returna false ifall alla lösningar är testade
+		return solve(0,0);
 	}
 
-	private boolean solve(int i, int j) {
+	/*private boolean solve(int i, int j) {
 		// System.out.println("currNumber and place: " +currNumber + " " + i + " " + j);
-		int nexti = i + 1;
-		int nextj = j;
-		if (nexti > 8) {
-			nexti = 0;
-			nextj++;
+		//System.out.println("getNumber(i,j): " + getNumber(i,j) + " x: " + i + " y: " + j);
+		if(i > 8) {
+			return true;
 		}
-		if (getNumber(i, j) == 0) {
+		if (getNumber(i, j) != 0) {
+			next(i,j);
+		} else {
 			for (int number = 1; number <= 9; number++) {
+				
 				if (isLegal(i, j, number)) {
-					System.out.println("number placed at: " + i + " " + j + " " + number);
 					setNumber(i, j, number);
-					if (solve(nexti, nextj)) {
+					
+					next(i,j);
+				} 
+			}
+			setNumber(i,j,0);
+		}
+		
+		return false;
+	}*/
+	private boolean solve(int row, int col) {
+		if(getNumber(row,col) == 0) {
+				for(int num = 1; num <= 9; num++) {	
+					if(isLegal(row,col,num)) {
+						setNumber(row,col,num);
+						next(row,col);
 						return true;
-					} else {
-						setNumber(i, j, 0);
 					}
 				}
-			}
+				setNumber(row,col,0);
+				return false;
+			
+		} else if(isLegal(row,col,getNumber(row,col))){
+			next(row,col);
+			return true;
+		} else {
 			return false;
 		}
-		return true;
 	}
-
+	private void next(int row, int col) {
+		if(col < 8) {
+			solve(row, col+1);
+		} else {
+			solve(row+1, 0);
+		}
+	}
 	private boolean checkRow(int row, int number) {
 		for (int i = 0; i < 9; i++) {
 			if (grid[row][i] == number) {

@@ -48,8 +48,8 @@ class SudokuSolverTest {
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
-        solver = new SolverAlt(sudokuBasic);
-        solverHard = new SolverAlt(sudokuHard);
+        solver = new Solver(sudokuBasic);
+        solverHard = new Solver(sudokuHard);
 
     }
 
