@@ -54,7 +54,6 @@ public class Solver implements SudokuSolver {
 
 	@Override
 	public boolean solve() {
-		//ska bara returna false ifall alla lösningar är testade
 		return solve(0,0);
 	}
 	private boolean solve(int row, int col) {
@@ -86,8 +85,8 @@ public class Solver implements SudokuSolver {
 	/**
 	 * Checks all digits in one row to not be the same as number
 	 * 
-	 * @param row    The row
-	 * @param number The digit that is checked for
+	 * @param row    		The row
+	 * @param number 	The digit that is checked for
 	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
 	 *                                  outside [0..8]
 	 */
@@ -102,8 +101,8 @@ public class Solver implements SudokuSolver {
 	/**
 	 * Checks all digits in one column to not be the same as number
 	 * 
-	 * @param col    The column
-	 * @param number The digit that is checked for
+	 * @param col			The column
+	 * @param number 	The digit that is checked for
 	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
 	 *                                  outside [0..8]
 	 */
@@ -118,8 +117,8 @@ public class Solver implements SudokuSolver {
 	/**
 	 * Checks that number is not in the 3x3 region row and col are placed in,
 	 * 
-	 * @param row    The row
-	 * @param col    The column
+	 * @param row    		The row
+	 * @param col    		The column
 	 * @param number The digit to check for
 	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
 	 *                                  outside [0..8]
@@ -139,8 +138,8 @@ public class Solver implements SudokuSolver {
 	/**
 	 * Checks so that the move about to be made is legal returns false if not.
 	 * 
-	 * @param row    The row
-	 * @param col    The column
+	 * @param row    		The row
+	 * @param col    		The column
 	 * @param number The digit to insert in row, col
 	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
 	 *                                  outside [0..8]
