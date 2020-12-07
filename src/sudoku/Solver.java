@@ -11,23 +11,39 @@ public class Solver implements SudokuSolver {
 
 	@Override
 	public void setNumber(int row, int col, int number) {
-		grid[row][col] = number;
+		if(number > 9|| number < 1 || row > 8 || row < 0 || col > 8 || col < 0) {
+			throw new IllegalArgumentException();
+		}else {
+			grid[row][col] = number;			
+		}
 
 	}
 
 	@Override
 	public boolean trySetNumber(int row, int col, int number) {
-		return isLegal(row, col, number);
+		if(number > 9|| number < 1 || row > 8 || row < 0 || col > 8 || col < 0) {
+			throw new IllegalArgumentException();
+		}else { 
+			return isLegal(row, col, number);
+		}
 	}
 
 	@Override
 	public int getNumber(int row, int col) {
-		return grid[row][col];
+		if(row > 8 || row < 0 || col > 8 || col < 0) {
+			throw new IllegalArgumentException();
+		}else {
+			return grid[row][col];			
+		}
 	}
 
 	@Override
 	public void removeNumber(int row, int col) {
-		grid[row][col] = 0;
+		if(row > 8 || row < 0 || col > 8 || col < 0) {
+			throw new IllegalArgumentException();
+		}else {
+			grid[row][col] = 0;			
+		}
 
 	}
 
@@ -55,7 +71,7 @@ public class Solver implements SudokuSolver {
 		 }
 		 for (int num = 1; num <= 9; num++) {
 			 
-	            if (isLegal(row,col,num)) {
+	            if (trySetNumber(row,col,num)) {
 	            	
 	                setNumber(row,col,num); 
 	 
@@ -63,7 +79,7 @@ public class Solver implements SudokuSolver {
 	                    return true;
 	            }
 	            
-	            setNumber(row,col,0);
+	            removeNumber(row,col);
 	        }
 	        return false;
 	    }
