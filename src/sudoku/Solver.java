@@ -83,6 +83,14 @@ public class Solver implements SudokuSolver {
 	        }
 	        return false;
 	    }
+	/**
+	 * Checks all digits in one row to not be the same as number
+	 * 
+	 * @param row    The row
+	 * @param number The digit that is checked for
+	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
+	 *                                  outside [0..8]
+	 */
 	private boolean checkRow(int row, int number) {
 		for (int i = 0; i < 9; i++) {
 			if (grid[row][i] == number) {
@@ -91,7 +99,14 @@ public class Solver implements SudokuSolver {
 		}
 		return false;
 	}
-
+	/**
+	 * Checks all digits in one column to not be the same as number
+	 * 
+	 * @param col    The column
+	 * @param number The digit that is checked for
+	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
+	 *                                  outside [0..8]
+	 */
 	private boolean checkCol(int col, int number) {
 		for (int i = 0; i < 9; i++) {
 			if (grid[i][col] == number) {
@@ -100,20 +115,36 @@ public class Solver implements SudokuSolver {
 		}
 		return false;
 	}
-
+	/**
+	 * Checks that number is not in the 3x3 region row and col are placed in,
+	 * 
+	 * @param row    The row
+	 * @param col    The column
+	 * @param number The digit to check for
+	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
+	 *                                  outside [0..8]
+	 */
 	private boolean checkRegion(int row, int col, int number) {
 		int r = row - row % 3;
 		int c = col - col % 3;
 
 		for (int i = r; i < r + 3; i++) {
-			for (int n = c; n < c + 3; n++) {
-				if (grid[i][n] == number)
+			for (int j = c; j < c + 3; j++) {
+				if (grid[i][j] == number)
 					return true;
 			}
 		}
 		return false;
 	}
-
+	/**
+	 * Checks so that the move about to be made is legal returns false if not.
+	 * 
+	 * @param row    The row
+	 * @param col    The column
+	 * @param number The digit to insert in row, col
+	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
+	 *                                  outside [0..8]
+	 */
 	private boolean isLegal(int row, int col, int number) {
 		return !(checkRow(row, number) || checkCol(col, number) || checkRegion(row, col, number));
 	}
