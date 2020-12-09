@@ -1,12 +1,9 @@
 package sudoku;
 
 import javax.swing.*;
-import javax.swing.border.Border;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
+
 
 public class SudokuView {
 
@@ -90,7 +87,7 @@ public class SudokuView {
     }
 
     public void showErrorMessage(String error) {
-        JOptionPane.showMessageDialog(frame, error);
+        JOptionPane.showMessageDialog(null, error);
     }
 
 }
