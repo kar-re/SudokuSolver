@@ -114,9 +114,6 @@ public class SudokuController {
             }
 
         }
-        if(Arrays.deepEquals(sudokuGrid, new int[9][9])){
-            throw new Exception("You cannot solve a empty grid!");
-        }
         return sudokuGrid;
     }
 }

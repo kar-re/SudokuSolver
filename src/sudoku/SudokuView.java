@@ -1,6 +1,7 @@
 package sudoku;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import java.awt.*;
 
@@ -16,9 +17,7 @@ public class SudokuView {
     }
     private void createWindow(String title, int width, int height) {
         frame = new JFrame(title);
-        //Ny JFrame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Container pane = frame.getContentPane();
 
         Color bgColor = new Color(251, 252, 253);
 
@@ -26,41 +25,33 @@ public class SudokuView {
         frame.setPreferredSize(new Dimension(width, height));
         frame.setResizable(true);
         JPanel mainPanel = new JPanel();
+        mainPanel.setBackground( bgColor);
+        mainPanel.setLayout(new BorderLayout());
 
-        JLabel titleFrame = new JLabel();
-        titleFrame.setBorder(BorderFactory.createEmptyBorder( 0,  20,  0,  0));
-        titleFrame.setText("Sudoku solver");
+        JLabel titleFrame = new JLabel("Sudoku solver", SwingConstants.CENTER);
         titleFrame.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 36));
-        //titleFrame.setPreferredSize(new Dimension(frame.getWidth(), 50));
-        System.out.println(frame.getWidth());
+        titleFrame.setBackground(bgColor);
 
         mainPanel.add(titleFrame, BorderLayout.PAGE_START);
-        mainPanel.setBackground( bgColor);
+
+        JPanel gridWrapper = new JPanel(new GridBagLayout());
         grid = new SudokuGrid();
-        //sudokuPanel.setPreferredSize(frame.getPreferredSize());
-
-
-        mainPanel.add(grid,  BorderLayout.CENTER);
-
+        gridWrapper.add(grid);
+        mainPanel.add(gridWrapper,  BorderLayout.CENTER);
 
         JPanel buttons = new JPanel();
-        buttons.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
-        solve = new JButton();
-        clear = new JButton();
+        buttons.setLayout(new BoxLayout(buttons, BoxLayout.LINE_AXIS));
+        solve = new JButton("Solve");
+        clear = new JButton("Clear");
         buttons.add(solve);
+        buttons.add(Box.createHorizontalGlue());
         buttons.add(clear);
-        solve.setText("Solve");
-        clear.setText("Clear");
-        //buttons.setPreferredSize(new Dimension(frame.getWidth() - 30, 30));
-        mainPanel.setLayout(new FlowLayout());
-        mainPanel.add(buttons, BorderLayout.SOUTH);
+        buttons.setBorder(BorderFactory.createEmptyBorder(32,32,32,32));
+        buttons.setBackground( bgColor);
 
 
 
-
-        //Lite extra, valde att sätta en preferred size och resizable false
-
-
+        mainPanel.add(buttons, BorderLayout.PAGE_END);
         frame.setContentPane(mainPanel);
         frame.pack();
         frame.setVisible(true);
