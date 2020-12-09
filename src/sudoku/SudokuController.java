@@ -16,15 +16,14 @@ public class SudokuController {
     }
 
     private void initView() {
-
-
+        //Set up buttons
         view.getSolveButton().addActionListener(e -> {
             System.out.println("Pressed solve");
             if(solver == null)
-                this.solver = new SolverAlt(parseGrid(), this);
+                this.solver = new Solver(parseGrid());
 
             if (solver.solve())
-                System.out.println("Solved!");
+                setGrid(solver.getNumbers());
 
         });
 
@@ -37,6 +36,7 @@ public class SudokuController {
                 }
             }
         });
+        //Set
     setDefault();
 
     }
@@ -64,18 +64,23 @@ public class SudokuController {
                 {0,0,0,9,0,0,0,2,0},
                 {4,0,8,5,0,0,3,6,0}
         };
-        JTextField[][] grid = view.getNumberGrid();
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                grid[i][j].setText(Integer.toString(sudokuHard[i][j]));
-            }
-        }
+        setGrid(sudokuBasic);
     }
 
     public void setNumber(int row, int col, int number) {
         view.getNumberGrid()[row][col].setText(Integer.toString(number));
         view.getFrame().repaint();
     }
+
+    public void setGrid(int[][] grid) {
+        JTextField[][] viewGrid = view.getNumberGrid();
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                viewGrid[i][j].setText(Integer.toString(grid[i][j]));
+            }
+        }
+    }
+
 
     private int[][] parseGrid() {
         JTextField[][] grid = view.getNumberGrid();
