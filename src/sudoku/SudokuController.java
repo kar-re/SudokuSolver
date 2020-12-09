@@ -21,18 +21,17 @@ public class SudokuController {
             System.out.println("Pressed solve");
             try {
 
-                if(solver == null)
+                if (solver == null)
                     this.solver = new Solver(parseGrid());
                 solver.setNumbers(parseGrid());
                 if (!solver.solve())
                     JOptionPane.showMessageDialog(null,
-                        "Unsolvable sudoku!",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                            "Unsolvable sudoku!",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
                 setGrid(solver.getNumbers());
 
             } catch (Exception ex) {
-
                 JOptionPane.showMessageDialog(null,
                         ex.getMessage(),
                         "Error",
@@ -52,32 +51,32 @@ public class SudokuController {
             }
         });
         //Set default numbers
-    setDefault();
+        setDefault();
 
     }
 
     private void setDefault() {
-         int[][] sudokuBasic = {
-                {8,6,0,0,2,0,0,0,0},
-                {0,0,0,7,0,0,0,5,9},
-                {0,0,0,0,0,0,0,0,0},
-                {0,0,0,0,6,0,8,0,0},
-                {0,4,0,0,0,0,0,0,0},
-                {0,0,5,3,0,0,0,0,7},
-                {0,0,0,0,0,0,0,0,0},
-                {0,2,0,0,0,0,6,0,0},
-                {0,0,7,5,0,9,0,0,0}
+        int[][] sudokuBasic = {
+                {8, 6, 0, 0, 2, 0, 0, 0, 0},
+                {0, 0, 0, 7, 0, 0, 0, 5, 9},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 6, 0, 8, 0, 0},
+                {0, 4, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 5, 3, 0, 0, 0, 0, 7},
+                {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 2, 0, 0, 0, 0, 6, 0, 0},
+                {0, 0, 7, 5, 0, 9, 0, 0, 0}
         };
         int[][] sudokuHard = {
-                {0,0,0,0,0,0,0,0,2},
-                {0,0,0,0,0,0,9,4,0},
-                {0,0,3,0,0,0,0,0,5},
-                {0,9,2,3,0,5,0,7,4},
-                {8,4,0,0,0,0,0,0,0},
-                {0,6,7,0,9,8,0,0,0},
-                {0,0,0,7,0,6,0,0,0},
-                {0,0,0,9,0,0,0,2,0},
-                {4,0,8,5,0,0,3,6,0}
+                {0, 0, 0, 0, 0, 0, 0, 0, 2},
+                {0, 0, 0, 0, 0, 0, 9, 4, 0},
+                {0, 0, 3, 0, 0, 0, 0, 0, 5},
+                {0, 9, 2, 3, 0, 5, 0, 7, 4},
+                {8, 4, 0, 0, 0, 0, 0, 0, 0},
+                {0, 6, 7, 0, 9, 8, 0, 0, 0},
+                {0, 0, 0, 7, 0, 6, 0, 0, 0},
+                {0, 0, 0, 9, 0, 0, 0, 2, 0},
+                {4, 0, 8, 5, 0, 0, 3, 6, 0}
         };
         setGrid(sudokuBasic);
     }
@@ -99,18 +98,15 @@ public class SudokuController {
         int[][] sudokuGrid = new int[9][9];
         for (int i = 0; i < 9; i++) {
             for (int k = 0; k < 9; k++) {
-                    if (!grid[i][k].getText().equals("")) {
-                        try {
-                        sudokuGrid[i][k] = Integer.parseInt(grid[i][k].getText().replaceAll("\\s+",""));
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            throw new Exception("Inputs must be numbers only!");
-                        }
-
-                    } else {
-                        sudokuGrid[i][k] = 0;
+                if (!grid[i][k].getText().equals("")) {
+                    try {
+                        sudokuGrid[i][k] = Integer.parseInt(grid[i][k].getText().replaceAll("\\s+", ""));
+                    } catch (Exception e) {
+                        throw new Exception("Inputs must be numbers only!");
                     }
-
+                } else {
+                    sudokuGrid[i][k] = 0;
+                }
             }
 
         }

@@ -1,7 +1,6 @@
 package sudoku;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import java.awt.*;
 
@@ -37,6 +36,7 @@ public class SudokuView {
         JPanel gridWrapper = new JPanel(new GridBagLayout());
         grid = new SudokuGrid();
         gridWrapper.add(grid);
+        gridWrapper.setBackground( bgColor);
         mainPanel.add(gridWrapper,  BorderLayout.CENTER);
 
         JPanel buttons = new JPanel();
