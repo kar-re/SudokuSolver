@@ -24,7 +24,11 @@ public class SudokuController {
                 if(solver == null)
                     this.solver = new Solver(parseGrid());
                 solver.setNumbers(parseGrid());
-                solver.solve();
+                if (!solver.solve())
+                    JOptionPane.showMessageDialog(null,
+                        "Unsolvable sudoku!",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
                 setGrid(solver.getNumbers());
 
             } catch (Exception ex) {
@@ -33,6 +37,7 @@ public class SudokuController {
                         ex.getMessage(),
                         "Error",
                         JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
         });
@@ -96,11 +101,12 @@ public class SudokuController {
             for (int k = 0; k < 9; k++) {
                     if (!grid[i][k].getText().equals("")) {
                         try {
-                        sudokuGrid[i][k] = Integer.parseInt(grid[i][k].getText());
+                        sudokuGrid[i][k] = Integer.parseInt(grid[i][k].getText().replaceAll("\\s+",""));
                         } catch (Exception e) {
                             e.printStackTrace();
-                            view.showErrorMessage("Inputs must be numbers only!");
+                            throw new Exception("Inputs must be numbers only!");
                         }
+
                     } else {
                         sudokuGrid[i][k] = 0;
                     }
