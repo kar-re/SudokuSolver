@@ -17,6 +17,17 @@ class SudokuSolverTest {
             {0,2,0,0,0,0,6,0,0},
             {0,0,7,5,0,9,0,0,0}
     };
+    private int[][] sudokuImpossible = {
+            {8,6,0,0,2,0,0,0,0},
+            {0,0,0,7,0,0,0,5,9},
+            {0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,6,0,8,0,0},
+            {0,4,0,0,0,0,0,0,0},
+            {0,0,5,3,0,0,0,0,7},
+            {0,0,0,0,0,0,0,0,0},
+            {0,2,5,0,0,0,6,0,0},
+            {0,0,7,5,0,9,0,0,0}
+    };
     /**
      * SudokuHard taken from
      * http://www.mathsphere.co.uk/downloads/sudoku/10203-hard.pdf
@@ -45,12 +56,13 @@ class SudokuSolverTest {
     };
     private SudokuSolver solver;
     private SudokuSolver solverHard;
+    private SudokuSolver solverImpossible;
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
         solver = new Solver(sudokuBasic);
         solverHard = new Solver(sudokuHard);
-
+        solverImpossible = new Solver(sudokuImpossible);
     }
 
     @org.junit.jupiter.api.AfterEach
@@ -106,6 +118,7 @@ class SudokuSolverTest {
         System.out.println(sudokuSolved);
         System.out.println(solverHard.getNumbers());
         assertTrue(Arrays.deepEquals(solverHard.getNumbers(),sudokuSolved), "Didn't solve correctly!");
+        assertEquals(false, solverImpossible.solve(), "Did not return false on impossible sudoku");
 
     }
 
