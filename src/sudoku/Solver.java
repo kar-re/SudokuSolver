@@ -2,9 +2,10 @@ package sudoku;
 
 public class Solver implements SudokuSolver {
 	private int[][] grid;
-
+	private int[][] unsolvedGrid;
 	public Solver(int[][] grid) {
 		this.grid = grid;
+		this.unsolvedGrid = grid;
 	}
 
 	@Override
@@ -26,6 +27,14 @@ public class Solver implements SudokuSolver {
 		}
 	}
 
+/**
+ *Removes number at position row, col
+ * 
+ * @param row	The row
+ * @param col		The column
+ * @throws IllegalArgumentException if number is outside [1..9] or row or col is
+ *                                  outside [0..8]
+ */
 	@Override
 	public int getNumber(int row, int col) {
 		if (row > 8 || row < 0 || col > 8 || col < 0) {
@@ -34,7 +43,14 @@ public class Solver implements SudokuSolver {
 			return grid[row][col];
 		}
 	}
-
+	/**
+	 *Removes number at position row, col
+	 * 
+	 * @param row	The row
+	 * @param col		The column
+	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
+	 *                                  outside [0..8]
+	 */
 	@Override
 	public void removeNumber(int row, int col) {
 		if (row > 8 || row < 0 || col > 8 || col < 0) {
@@ -55,6 +71,13 @@ public class Solver implements SudokuSolver {
 		return solve(0, 0);
 	}
 
+	/**
+	 *Solves the sudoku
+	 * 
+	 * @param row	The row
+	 * @param col		The column
+	 * @return returns true if sudoku is solvable returns false if not
+	 */
 	private boolean solve(int row, int col) {
 
 		if (row == 8 && col == 9) {
@@ -65,6 +88,10 @@ public class Solver implements SudokuSolver {
 			col = 0;
 		}
 		if (getNumber(row, col) != 0) {
+			if(!trySetNumber(row,col, getNumber(row,col))) {
+				System.out.println("row is: " + row + "col is: " + col + "number is: " + getNumber(row,col));
+				return false;
+			}
 			return solve(row, col + 1);
 		}
 		for (int num = 1; num <= 9; num++) {
@@ -90,7 +117,10 @@ public class Solver implements SudokuSolver {
 	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
 	 *                                  outside [0..8]
 	 */
-	private boolean checkRow(int row, int number) {
+	private boolean checkRow(int row, int col, int number) {
+		if(grid[row][col] == number ) {
+			return false;
+		}
 		for (int i = 0; i < 9; i++) {
 			if (grid[row][i] == number) {
 				return true;
@@ -107,7 +137,10 @@ public class Solver implements SudokuSolver {
 	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
 	 *                                  outside [0..8]
 	 */
-	private boolean checkCol(int col, int number) {
+	private boolean checkCol(int row, int col, int number) {
+		if(grid[row][col] == number ) {
+			return false;
+		}
 		for (int i = 0; i < 9; i++) {
 			if (grid[i][col] == number) {
 				return true;
@@ -128,7 +161,9 @@ public class Solver implements SudokuSolver {
 	private boolean checkRegion(int row, int col, int number) {
 		int r = row - row % 3;
 		int c = col - col % 3;
-
+		if(grid[row][col] == number ) {
+			return false;
+		}
 		for (int i = r; i < r + 3; i++) {
 			for (int j = c; j < c + 3; j++) {
 				if (grid[i][j] == number)
@@ -148,7 +183,7 @@ public class Solver implements SudokuSolver {
 	 *                                  outside [0..8]
 	 */
 	private boolean isLegal(int row, int col, int number) {
-		return !(checkRow(row, number) || checkCol(col, number) || checkRegion(row, col, number));
+		return !(checkRow(row, col, number) || checkCol(row, col, number) || checkRegion(row, col, number));
 	}
 
 	@Override
