@@ -89,7 +89,7 @@ public class Solver implements SudokuSolver {
 		}
 		if (getNumber(row, col) != 0) {
 			if(!trySetNumber(row,col, getNumber(row,col))) {
-				System.out.println("row is: " + row + "col is: " + col + "number is: " + getNumber(row,col));
+				System.out.println("row is: " + row + " col is: " + col + " number is: " + getNumber(row,col));
 				return false;
 			}
 			return solve(row, col + 1);
@@ -100,11 +100,14 @@ public class Solver implements SudokuSolver {
 
 				setNumber(row, col, num);
 
-				if (solve(row, col + 1))
-					return true;
+				if (solve(row, col + 1)) {
+					return true;					
+				}else {
+					removeNumber(row, col);					
+				}
+				
 			}
 
-			removeNumber(row, col);
 		}
 		return false;
 	}
@@ -118,11 +121,8 @@ public class Solver implements SudokuSolver {
 	 *                                  outside [0..8]
 	 */
 	private boolean checkRow(int row, int col, int number) {
-		if(grid[row][col] == number ) {
-			return false;
-		}
 		for (int i = 0; i < 9; i++) {
-			if (grid[row][i] == number) {
+			if (grid[row][i] == number && i != col) {
 				return true;
 			}
 		}
@@ -138,11 +138,8 @@ public class Solver implements SudokuSolver {
 	 *                                  outside [0..8]
 	 */
 	private boolean checkCol(int row, int col, int number) {
-		if(grid[row][col] == number ) {
-			return false;
-		}
 		for (int i = 0; i < 9; i++) {
-			if (grid[i][col] == number) {
+			if (grid[i][col] == number && i != row) {
 				return true;
 			}
 		}
@@ -161,12 +158,9 @@ public class Solver implements SudokuSolver {
 	private boolean checkRegion(int row, int col, int number) {
 		int r = row - row % 3;
 		int c = col - col % 3;
-		if(grid[row][col] == number ) {
-			return false;
-		}
 		for (int i = r; i < r + 3; i++) {
 			for (int j = c; j < c + 3; j++) {
-				if (grid[i][j] == number)
+				if (grid[i][j] == number && i != row && j != col)
 					return true;
 			}
 		}
