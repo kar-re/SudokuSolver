@@ -2,15 +2,15 @@ package sudoku;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class SudokuController {
     private SudokuView view;
-    private SudokuModel model;
     private SudokuSolver solver;
 
-    public SudokuController(SudokuView view, SudokuModel model) {
+    public SudokuController(SudokuView view) {
         this.view = view;
-        this.model = model;
+
 
         SwingUtilities.invokeLater(() -> initView());
     }
@@ -19,11 +19,21 @@ public class SudokuController {
         //Set up buttons
         view.getSolveButton().addActionListener(e -> {
             System.out.println("Pressed solve");
-            if(solver == null)
-                this.solver = new Solver(parseGrid());
+            try {
 
-            if (solver.solve())
+                if(solver == null)
+                    this.solver = new Solver(parseGrid());
+                solver.setNumbers(parseGrid());
+                solver.solve();
                 setGrid(solver.getNumbers());
+
+            } catch (Exception ex) {
+
+                JOptionPane.showMessageDialog(null,
+                        ex.getMessage(),
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
 
         });
 
@@ -36,7 +46,7 @@ public class SudokuController {
                 }
             }
         });
-        //Set
+        //Set default numbers
     setDefault();
 
     }
@@ -67,13 +77,10 @@ public class SudokuController {
         setGrid(sudokuBasic);
     }
 
-    public void setNumber(int row, int col, int number) {
-        view.getNumberGrid()[row][col].setText(Integer.toString(number));
-        view.getFrame().repaint();
-    }
 
     public void setGrid(int[][] grid) {
         JTextField[][] viewGrid = view.getNumberGrid();
+
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 viewGrid[i][j].setText(Integer.toString(grid[i][j]));
@@ -82,23 +89,27 @@ public class SudokuController {
     }
 
 
-    private int[][] parseGrid() {
+    private int[][] parseGrid() throws Exception {
         JTextField[][] grid = view.getNumberGrid();
         int[][] sudokuGrid = new int[9][9];
         for (int i = 0; i < 9; i++) {
             for (int k = 0; k < 9; k++) {
-                try {
-                    if (grid[i][k].getText() != null) {
+                    if (!grid[i][k].getText().equals("")) {
+                        try {
                         sudokuGrid[i][k] = Integer.parseInt(grid[i][k].getText());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            view.showErrorMessage("Inputs must be numbers only!");
+                        }
                     } else {
                         sudokuGrid[i][k] = 0;
                     }
-                } catch (Exception e) {
-                    view.showErrorMessage("Inputs must be numbers only!");
-                    break;
-                }
+
             }
 
+        }
+        if(Arrays.deepEquals(sudokuGrid, new int[9][9])){
+            throw new Exception("You cannot solve a empty grid!");
         }
         return sudokuGrid;
     }
