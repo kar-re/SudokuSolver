@@ -2,47 +2,45 @@ package sudoku;
 
 public class Solver implements SudokuSolver {
 	private int[][] grid;
-	private int[][] unsolvedGrid;
 
 	public Solver(int[][] grid) {
 		this.grid = grid;
-		this.unsolvedGrid = grid;
 	}
 
 	@Override
 	public void setNumber(int row, int col, int number) {
-		if(number > 9|| number < 1 || row > 8 || row < 0 || col > 8 || col < 0) {
+		if (number > 9 || number < 1 || row > 8 || row < 0 || col > 8 || col < 0) {
 			throw new IllegalArgumentException();
-		}else {
-			grid[row][col] = number;			
+		} else {
+			grid[row][col] = number;
 		}
 
 	}
 
 	@Override
 	public boolean trySetNumber(int row, int col, int number) {
-		if(number > 9|| number < 1 || row > 8 || row < 0 || col > 8 || col < 0) {
+		if (number > 9 || number < 1 || row > 8 || row < 0 || col > 8 || col < 0) {
 			throw new IllegalArgumentException();
-		}else { 
+		} else {
 			return isLegal(row, col, number);
 		}
 	}
 
 	@Override
 	public int getNumber(int row, int col) {
-		if(row > 8 || row < 0 || col > 8 || col < 0) {
+		if (row > 8 || row < 0 || col > 8 || col < 0) {
 			throw new IllegalArgumentException();
-		}else {
-			return grid[row][col];			
+		} else {
+			return grid[row][col];
 		}
 	}
 
 	@Override
 	public void removeNumber(int row, int col) {
-		if(row > 8 || row < 0 || col > 8 || col < 0) {
+		if (row > 8 || row < 0 || col > 8 || col < 0) {
 			throw new IllegalArgumentException();
-		}else {
-			grid[row][col] = 0;			
+		} else {
+			grid[row][col] = 0;
 		}
 
 	}
@@ -54,39 +52,41 @@ public class Solver implements SudokuSolver {
 
 	@Override
 	public boolean solve() {
-		return solve(0,0);
+		return solve(0, 0);
 	}
+
 	private boolean solve(int row, int col) {
-		
+
 		if (row == 8 && col == 9) {
-			return true;			
+			return true;
 		}
-		 if (col == 9) {
-	            row++;
-	            col = 0;
+		if (col == 9) {
+			row++;
+			col = 0;
 		}
-		 if (getNumber(row,col) != 0) {
-			 return solve(row, col + 1);			 
-		 }
-		 for (int num = 1; num <= 9; num++) {
-			 
-	            if (trySetNumber(row,col,num)) {
-	            	
-	                setNumber(row,col,num); 
-	 
-	                if (solve( row, col + 1))
-	                    return true;
-	            }
-	            
-	            removeNumber(row,col);
-	        }
-	        return false;
-	    }
+		if (getNumber(row, col) != 0) {
+			return solve(row, col + 1);
+		}
+		for (int num = 1; num <= 9; num++) {
+
+			if (trySetNumber(row, col, num)) {
+
+				setNumber(row, col, num);
+
+				if (solve(row, col + 1))
+					return true;
+			}
+
+			removeNumber(row, col);
+		}
+		return false;
+	}
+
 	/**
 	 * Checks all digits in one row to not be the same as number
 	 * 
-	 * @param row    		The row
-	 * @param number 	The digit that is checked for
+	 * @param row    The row
+	 * @param number The digit that is checked for
 	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
 	 *                                  outside [0..8]
 	 */
@@ -98,11 +98,12 @@ public class Solver implements SudokuSolver {
 		}
 		return false;
 	}
+
 	/**
 	 * Checks all digits in one column to not be the same as number
 	 * 
-	 * @param col			The column
-	 * @param number 	The digit that is checked for
+	 * @param col    The column
+	 * @param number The digit that is checked for
 	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
 	 *                                  outside [0..8]
 	 */
@@ -114,11 +115,12 @@ public class Solver implements SudokuSolver {
 		}
 		return false;
 	}
+
 	/**
 	 * Checks that number is not in the 3x3 region row and col are placed in,
 	 * 
-	 * @param row    		The row
-	 * @param col    		The column
+	 * @param row    The row
+	 * @param col    The column
 	 * @param number The digit to check for
 	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
 	 *                                  outside [0..8]
@@ -135,11 +137,12 @@ public class Solver implements SudokuSolver {
 		}
 		return false;
 	}
+
 	/**
 	 * Checks so that the move about to be made is legal returns false if not.
 	 * 
-	 * @param row    		The row
-	 * @param col    		The column
+	 * @param row    The row
+	 * @param col    The column
 	 * @param number The digit to insert in row, col
 	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
 	 *                                  outside [0..8]
