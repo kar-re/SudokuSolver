@@ -2,12 +2,23 @@ package sudoku;
 
 public class Solver implements SudokuSolver {
 	private int[][] grid;
-	private int[][] unsolvedGrid;
+	/**
+	 *Sets the sudoku grid to the input
+	 *
+	 *@param grid	the int matrix to use
+	 */
 	public Solver(int[][] grid) {
 		this.grid = grid;
-		this.unsolvedGrid = grid;
 	}
-
+	/**
+	 * Sets the number at row, col to number
+	 * 
+	 * 	@param row    		The row
+	 * 	@param col    		The column
+	 * 	@param number 	The digit to insert in row, col
+	 * 	@throws IllegalArgumentException if number is outside [1..9] or row or col is
+	 *                                  outside [0..8]
+	 */
 	@Override
 	public void setNumber(int row, int col, int number) {
 		if (number > 9 || number < 1 || row > 8 || row < 0 || col > 8 || col < 0) {
@@ -17,7 +28,16 @@ public class Solver implements SudokuSolver {
 		}
 
 	}
-
+	/**
+	 * Checks so that the move about to be made is legal returns false if not.
+	 * 
+	 * 	@param row    		The row
+	 * 	@param col    		The column
+	 * 	@param number 	The digit to insert in row, col
+	 *	@return returns true if the move is legal, false if not
+	 * 	@throws IllegalArgumentException if number is outside [1..9] or row or col is
+	 *                                  outside [0..8]
+	 */
 	@Override
 	public boolean trySetNumber(int row, int col, int number) {
 		if (number > 9 || number < 1 || row > 8 || row < 0 || col > 8 || col < 0) {
@@ -60,12 +80,19 @@ public class Solver implements SudokuSolver {
 		}
 
 	}
-
+	/**
+	 * Clears the entire sudoku grid
+	 * 
+	 */
 	@Override
 	public void clear() {
 		grid = new int[9][9];
 	}
-
+	/**
+	 * Solves the sudoku
+	 * @return returns true if sudoku is solvable false if not
+	 * 
+	 */
 	@Override
 	public boolean solve() {
 		return solve(0, 0);
@@ -74,7 +101,7 @@ public class Solver implements SudokuSolver {
 	/**
 	 *Solves the sudoku
 	 * 
-	 * @param row	The row
+	 * @param row		The row
 	 * @param col		The column
 	 * @return returns true if sudoku is solvable returns false if not
 	 */
@@ -170,21 +197,25 @@ public class Solver implements SudokuSolver {
 	/**
 	 * Checks so that the move about to be made is legal returns false if not.
 	 * 
-	 * @param row    The row
-	 * @param col    The column
-	 * @param number The digit to insert in row, col
-	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
-	 *                                  outside [0..8]
+	 * @param row    		The row
+	 * @param col    		The column
+	 * @param number 	The digit to insert in row, col
+	 *	@return returns true if the move is legal, false if not
 	 */
 	private boolean isLegal(int row, int col, int number) {
 		return !(checkRow(row, col, number) || checkCol(row, col, number) || checkRegion(row, col, number));
 	}
-
+	/**
+	 *	@return returns the current sudoku grid
+	 */
 	@Override
 	public int[][] getNumbers() {
 		return grid;
 	}
-
+	/**
+	 *	Sets the sudoku grid to the input
+	 *@param numbers	the int matrix to change to
+	 */
 	@Override
 	public void setNumbers(int[][] numbers) {
 		grid = numbers;
