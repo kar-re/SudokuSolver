@@ -16,8 +16,9 @@ public class SudokuView {
     private final Color bgColor = new Color(251, 252, 253);
 
     public SudokuView() {
-        SwingUtilities.invokeLater(() -> createWindow( "Sudoku Solver", 540, 680));
+        SwingUtilities.invokeLater(() -> createWindow("Sudoku Solver", 540, 680));
     }
+
     private void createWindow(String title, int width, int height) {
         //New JFrame, close when pressing the X button
         frame = new JFrame(title);
@@ -27,7 +28,7 @@ public class SudokuView {
 
         //Mainpanel, sets background and layout
         JPanel mainPanel = new JPanel();
-        mainPanel.setBackground( bgColor);
+        mainPanel.setBackground(bgColor);
         mainPanel.setLayout(new BorderLayout());
 
         //Title label
@@ -41,8 +42,8 @@ public class SudokuView {
         JPanel gridWrapper = new JPanel(new GridBagLayout());
         grid = new SudokuGrid();
         gridWrapper.add(grid);
-        gridWrapper.setBackground( bgColor);
-        mainPanel.add(gridWrapper,  BorderLayout.CENTER);
+        gridWrapper.setBackground(bgColor);
+        mainPanel.add(gridWrapper, BorderLayout.CENTER);
 
         //Solve and clear button with correct layout.
         JPanel buttons = new JPanel();
@@ -52,8 +53,8 @@ public class SudokuView {
         buttons.add(solve);
         buttons.add(Box.createHorizontalGlue());
         buttons.add(clear);
-        buttons.setBorder(BorderFactory.createEmptyBorder(32,32,32,32));
-        buttons.setBackground( bgColor);
+        buttons.setBorder(BorderFactory.createEmptyBorder(32, 32, 32, 32));
+        buttons.setBackground(bgColor);
         mainPanel.add(buttons, BorderLayout.PAGE_END);
 
         //Set content pane and pack
@@ -68,6 +69,7 @@ public class SudokuView {
     public JButton getSolveButton() {
         return solve;
     }
+
     /**
      * @return JButton for the clear button
      */
@@ -77,6 +79,7 @@ public class SudokuView {
 
     /**
      * Returns the sudoku grid from the view
+     *
      * @return Sudoku grid
      */
     public JTextField[][] getNumberGrid() {

@@ -1,27 +1,23 @@
 package sudoku;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 
 /**
  * SudokuGrid is a JPanel that implements a 9x9 grid, for sudoku.
  */
 public class SudokuGrid extends JPanel {
-    private final Color innerBorder = new Color(0,0,0,40);
+    private final Color innerBorder = new Color(0, 0, 0, 40);
     private final Color bgColor = new Color(251, 252, 253);
     private JTextField[][] inputFields;
     private JPanel[][] biggerBoxes;
 
     SudokuGrid() {
-        this.setLayout(new GridLayout(3,3));
+        this.setLayout(new GridLayout(3, 3));
 
         inputFields = new JTextField[9][9];
         biggerBoxes = new JPanel[3][3];
@@ -42,18 +38,18 @@ public class SudokuGrid extends JPanel {
             for (int k = 0; k < 3; k++) {
                 biggerBoxes[i][k] = new JPanel();
                 biggerBoxes[i][k].setBorder(BorderFactory.createLineBorder(innerBorder, 1));
-                biggerBoxes[i][k].setLayout(new GridLayout(3,3));
+                biggerBoxes[i][k].setLayout(new GridLayout(3, 3));
             }
         }
 
         for (int i = 0; i < 9; i++) {
             for (int k = 0; k < 9; k++) {
-               int x = i/3;
-               int y = k/3;
+                int x = i / 3;
+                int y = k / 3;
 
-               //Set each other bigbox to a different color
-               if ((x+y)%2==0)
-                   inputFields[i][k].setBackground(new Color(255, 185, 211,255));
+                //Set each other bigbox to a different color
+                if ((x + y) % 2 == 0)
+                    inputFields[i][k].setBackground(new Color(255, 185, 211, 255));
                 biggerBoxes[x][y].add(inputFields[i][k]);
 
             }
@@ -65,7 +61,7 @@ public class SudokuGrid extends JPanel {
             }
         }
 
-        this.setBorder(BorderFactory.createEmptyBorder( 0,  20,  0,  20));
+        this.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
         this.setBackground(bgColor);
     }
 
@@ -86,8 +82,8 @@ public class SudokuGrid extends JPanel {
     }
 
 
-
     private static final long serialVersionUID = 1L;
+
     //Sets aspect ratio to be square
     @Override
     public Dimension getPreferredSize() {

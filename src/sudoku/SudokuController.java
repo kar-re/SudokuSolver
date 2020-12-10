@@ -1,8 +1,6 @@
 package sudoku;
 
 import javax.swing.*;
-import java.awt.*;
-import java.util.Arrays;
 
 /**
  * <code>SudokuController</code> is the controlling part of the MVC-structure.
@@ -54,7 +52,7 @@ public class SudokuController {
             }
         });
         //Set default numbers
-        setDefault();
+        // setDefault();
 
     }
 
@@ -90,6 +88,7 @@ public class SudokuController {
 
     /**
      * Sets view to display a int[][] grid
+     *
      * @param grid to set view to
      */
     public void setGrid(int[][] grid) {
@@ -104,6 +103,7 @@ public class SudokuController {
 
     /**
      * Tries to parse viewgrid
+     *
      * @return int[9][9]
      * @throws Exception if input is invalid
      */
