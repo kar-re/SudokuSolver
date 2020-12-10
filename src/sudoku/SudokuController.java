@@ -4,26 +4,29 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 
+/**
+ * <code>SudokuController</code> is the controlling part of the MVC-structure.
+ * It instantiates the SudokuView and controller and handles the communication inbetween.
+ */
 public class SudokuController {
     private SudokuView view;
     private SudokuSolver solver;
 
     public SudokuController(SudokuView view) {
         this.view = view;
-
-
         SwingUtilities.invokeLater(() -> initView());
     }
 
     private void initView() {
         //Set up buttons
         view.getSolveButton().addActionListener(e -> {
-            System.out.println("Pressed solve");
+            //Try catch block for handling exceptions
             try {
-
                 if (solver == null)
                     this.solver = new Solver(parseGrid());
                 solver.setNumbers(parseGrid());
+
+                //If solver returns false
                 if (!solver.solve())
                     JOptionPane.showMessageDialog(null,
                             "Unsolvable sudoku!",
@@ -38,9 +41,9 @@ public class SudokuController {
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
         });
 
+        //Clear button
         view.getClearButton().addActionListener(e -> {
             System.out.println("Pressed clear");
             JTextField[][] grid = view.getNumberGrid();
@@ -55,6 +58,9 @@ public class SudokuController {
 
     }
 
+    /**
+     * Sets default grid to one of the supplied arrays
+     */
     private void setDefault() {
         int[][] sudokuBasic = {
                 {8, 6, 0, 0, 2, 0, 0, 0, 0},
@@ -82,9 +88,12 @@ public class SudokuController {
     }
 
 
+    /**
+     * Sets view to display a int[][] grid
+     * @param grid to set view to
+     */
     public void setGrid(int[][] grid) {
         JTextField[][] viewGrid = view.getNumberGrid();
-
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 viewGrid[i][j].setText(Integer.toString(grid[i][j]));
@@ -93,6 +102,11 @@ public class SudokuController {
     }
 
 
+    /**
+     * Tries to parse viewgrid
+     * @return int[9][9]
+     * @throws Exception if input is invalid
+     */
     private int[][] parseGrid() throws Exception {
         JTextField[][] grid = view.getNumberGrid();
         int[][] sudokuGrid = new int[9][9];

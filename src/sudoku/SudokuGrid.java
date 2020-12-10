@@ -11,24 +11,21 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 
+/**
+ * SudokuGrid is a JPanel that implements a 9x9 grid, for sudoku.
+ */
 public class SudokuGrid extends JPanel {
     private final Color innerBorder = new Color(0,0,0,40);
-    private final Color bigBorder = new Color(0, 0, 0, 80);
     private final Color bgColor = new Color(251, 252, 253);
     private JTextField[][] inputFields;
     private JPanel[][] biggerBoxes;
 
-    /**
-     *
-     */
     SudokuGrid() {
-
         this.setLayout(new GridLayout(3,3));
 
         inputFields = new JTextField[9][9];
         biggerBoxes = new JPanel[3][3];
 
-        Border fieldBorder = BorderFactory.createLineBorder(Color.BLACK, 1);
         for (int i = 0; i < 9; i++) {
             for (int k = 0; k < 9; k++) {
                 inputFields[i][k] = new JTextField();
@@ -40,6 +37,7 @@ public class SudokuGrid extends JPanel {
             }
         }
 
+        //Put smaller boxes in bigger boxes
         for (int i = 0; i < 3; i++) {
             for (int k = 0; k < 3; k++) {
                 biggerBoxes[i][k] = new JPanel();
@@ -52,6 +50,8 @@ public class SudokuGrid extends JPanel {
             for (int k = 0; k < 9; k++) {
                int x = i/3;
                int y = k/3;
+
+               //Set each other bigbox to a different color
                if ((x+y)%2==0)
                    inputFields[i][k].setBackground(new Color(255, 185, 211,255));
                 biggerBoxes[x][y].add(inputFields[i][k]);
@@ -64,7 +64,6 @@ public class SudokuGrid extends JPanel {
                 this.add(biggerBoxes[i][k]);
             }
         }
-
 
         this.setBorder(BorderFactory.createEmptyBorder( 0,  20,  0,  20));
         this.setBackground(bgColor);
@@ -86,7 +85,10 @@ public class SudokuGrid extends JPanel {
         inputFields[row][col].setText(Integer.toString(number));
     }
 
+
+
     private static final long serialVersionUID = 1L;
+    //Sets aspect ratio to be square
     @Override
     public Dimension getPreferredSize() {
         Dimension d = this.getParent().getSize();
@@ -94,6 +96,8 @@ public class SudokuGrid extends JPanel {
         newSize = newSize == 0 ? 100 : newSize;
         return new Dimension(newSize, newSize);
     }
+
+    //DocumentFilter for 1 char
     public class LimitDocumentFilter extends DocumentFilter {
 
         private int limit;
