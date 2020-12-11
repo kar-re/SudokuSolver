@@ -1,5 +1,11 @@
-# sudoku.SudokuSolver
+# SudokuSolver
 
-## Todo
-Jag lade till lite UI boilerplate som vi kan använda. Soduku-lösaren, events, testning, javadoc etc återstår!
-lets gooo 
+## Structure
+`sudoku` - The UI and the actual solver
+
+`test` -  Test cases
+
+## Dependencies
+JUnit 5
+
+Java 8
