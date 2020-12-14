@@ -138,7 +138,21 @@ public class Solver implements SudokuSolver {
 		}
 		return false;
 	}
-
+	/**
+	 * Checks all digits in the grid to see if everything is legal
+	 * 
+	 * @returns  returns false if any placed number is illegal else returns true
+	 */
+	private boolean checkGrid() {
+		for(int i = 0; i < grid.length; i++) {
+			for(int j=0; j<grid[i].length;i++) {
+				if(!isLegal(i,j,grid[i][j])) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 	/**
 	 * Checks all digits in one row to not be the same as number
 	 * 
