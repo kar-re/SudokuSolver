@@ -12,6 +12,7 @@ local.properties
 .loadpath
 .recommenders
 .DS_Store
+.javadoc/
 
 # External tool builders
 .externalToolBuilders/

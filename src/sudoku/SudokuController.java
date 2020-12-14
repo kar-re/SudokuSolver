@@ -25,16 +25,22 @@ public class SudokuController {
                 solver.setNumbers(parseGrid());
 
                 //If solver returns false
-                if (!solver.solve())
+                if (!solver.solve()) {
                     JOptionPane.showMessageDialog(null,
                             "Unsolvable sudoku!",
                             "Error",
                             JOptionPane.ERROR_MESSAGE);
+                    //clearGrid();
+                    return;
+                }
                 setGrid(solver.getNumbers());
 
             } catch (Exception ex) {
+                String error = ex.getMessage();
+                if (error == null)
+                    error = "Inputs måste vara mellan 1-9!";
                 JOptionPane.showMessageDialog(null,
-                        ex.getMessage(),
+                         error,
                         "Error",
                         JOptionPane.ERROR_MESSAGE);
                 return;
@@ -44,16 +50,20 @@ public class SudokuController {
         //Clear button
         view.getClearButton().addActionListener(e -> {
             System.out.println("Pressed clear");
-            JTextField[][] grid = view.getNumberGrid();
-            for (int i = 0; i < 9; i++) {
-                for (int j = 0; j < 9; j++) {
-                    grid[i][j].setText("");
-                }
-            }
+            clearGrid();
         });
         //Set default numbers
         // setDefault();
 
+    }
+
+    private void clearGrid() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                JTextField[][] grid = view.getNumberGrid();
+                grid[i][j].setText("");
+            }
+        }
     }
 
     /**
@@ -115,8 +125,10 @@ public class SudokuController {
                 if (!grid[i][k].getText().equals("")) {
                     try {
                         sudokuGrid[i][k] = Integer.parseInt(grid[i][k].getText().replaceAll("\\s+", ""));
+                        if (sudokuGrid[i][k] == 0)
+                            throw new Exception("Inputs must be numbers 1-9 only!");
                     } catch (Exception e) {
-                        throw new Exception("Inputs must be numbers only!");
+                        throw new Exception("Inputs must be numbers 1-9 only!");
                     }
                 } else {
                     sudokuGrid[i][k] = 0;

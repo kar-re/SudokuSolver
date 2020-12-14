@@ -47,14 +47,14 @@ public class Solver implements SudokuSolver {
 		}
 	}
 
-/**
- *Gets number at position row, col
- * 
- * @param row	The row
- * @param col		The column
- * @throws IllegalArgumentException if number is outside [1..9] or row or col is
- *                                  outside [0..8]
- */
+	/**
+	 *Gets number at position row, col
+	 *
+	 * @param row	The row
+	 * @param col		The column
+	 * @throws IllegalArgumentException if number is outside [1..9] or row or col is
+	 *                                  outside [0..8]
+	 */
 	@Override
 	public int getNumber(int row, int col) {
 		if (row > 8 || row < 0 || col > 8 || col < 0) {

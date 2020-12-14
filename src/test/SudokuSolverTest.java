@@ -7,15 +7,26 @@ import java.util.Arrays;
 
 class SudokuSolverTest {
     private int[][] sudokuBasic = {
-            {8,6,0,0,2,0,0,0,0},
-            {0,0,0,7,0,0,0,5,9},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,6,0,8,0,0},
-            {0,4,0,0,0,0,0,0,0},
-            {0,0,5,3,0,0,0,0,7},
-            {0,0,0,0,0,0,0,0,0},
-            {0,2,0,0,0,0,6,0,0},
-            {0,0,7,5,0,9,0,0,0}
+            {0,0,8,0,0,9,0,6,2},
+            {0,0,0,0,0,0,0,0,5},
+            {1,0,2,5,0,0,0,0,0},
+            {0,0,0,2,1,0,0,9,0},
+            {0,5,0,0,0,0,6,0,0},
+            {6,0,0,0,0,0,0,2,8},
+            {4,1,0,6,0,8,0,0,0},
+            {8,6,0,0,3,0,1,0,0},
+            {0,0,0,0,0,0,4,0,0}
+    };
+    private int[][] sudokuBasicSolved = {
+            {5,4,8,1,7,9,3,6,2},
+            {3,7,6,8,2,4,9,1,5},
+            {1,9,2,5,6,3,8,7,4},
+            {7,8,4,2,1,6,5,9,3},
+            {2,5,9,3,8,7,6,4,1},
+            {6,3,1,9,4,5,7,2,8},
+            {4,1,5,6,9,8,2,3,7},
+            {8,6,7,4,3,2,1,5,9},
+            {9,2,3,7,5,1,4,8,6}
     };
     private int[][] sudokuImpossible = {
             {8,6,8,0,0,0,0,0,0},
@@ -24,17 +35,6 @@ class SudokuSolverTest {
             {0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0}
-    };
-    private int[][] sudokuImpossible2 = {
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {1,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0},
-            {1,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0}
@@ -54,7 +54,7 @@ class SudokuSolverTest {
             {0,0,0,9,0,0,0,2,0},
             {4,0,8,5,0,0,3,6,0}
     };
-    private int[][] sudokuSolved = {
+    private int[][] sudokuHardSolved = {
             {6,8,4,1,5,9,7,3,2},
             {7,5,1,8,3,2,9,4,6},
             {9,2,3,6,7,4,1,8,5},
@@ -66,14 +66,10 @@ class SudokuSolverTest {
             {4,7,8,5,2,1,3,6,9},
     };
     private SudokuSolver solver;
-    private SudokuSolver solverHard;
-    private SudokuSolver solverImpossible;
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
         solver = new Solver(sudokuBasic);
-        solverHard = new Solver(sudokuHard);
-        solverImpossible = new Solver(sudokuImpossible2);
     }
 
     @org.junit.jupiter.api.AfterEach
@@ -89,6 +85,8 @@ class SudokuSolverTest {
 
     @org.junit.jupiter.api.Test
     void trySetNumber() {
+        solver.setNumber(0,0,1);
+        assertEquals(Integer.valueOf(1),solver.getNumber(0,0));
     }
 
     @org.junit.jupiter.api.Test
@@ -109,27 +107,31 @@ class SudokuSolverTest {
         assertTrue(Arrays.deepEquals(solver.getNumbers(),new int[9][9]), "Didn't clear properly!");
     }
 
+
     @org.junit.jupiter.api.Test
-    void solve() {
-        solverHard.solve();
-        for (int i = 0; i < 9; i++ ) {
-            System.out.print(i + " : ");
-            for(int n =0 ; n < 9; n ++) {
-             System.out.print(solverHard.getNumber(i,n));
-            }
-            System.out.println("");
-        }
-        for (int i = 0; i < 9; i++ ) {
-            System.out.print(i + " : ");
-            for(int n =0 ; n < 9; n ++) {
-                System.out.print(sudokuSolved[i][n]);
-            }
-            System.out.println("");
-        }
-        System.out.println(sudokuSolved);
-        System.out.println(solverHard.getNumbers());
-        assertTrue(Arrays.deepEquals(solverHard.getNumbers(),sudokuSolved), "Didn't solve correctly!");
-        assertEquals(false, solverImpossible.solve(), "Did not return false on impossible sudoku");
+    void solveBasic() {
+        assertTrue(solver.solve(), "Didn't return true after solve!");
+        assertTrue(Arrays.deepEquals(solver.getNumbers(),sudokuBasicSolved), "Didn't solve correctly!");
+    }
+
+    @org.junit.jupiter.api.Test
+    void solveHard() {
+        solver.setNumbers(sudokuHard);
+        assertTrue(solver.solve(), "Didn't return true after solve!");
+        assertTrue(Arrays.deepEquals(solver.getNumbers(),sudokuHardSolved), "Didn't solve correctly!");
+    }
+
+    @org.junit.jupiter.api.Test
+    void solveEmpty() {
+        solver.setNumbers(new int[9][9]);
+        assertTrue(Arrays.deepEquals(solver.getNumbers(),new int[9][9]), "Didn't solve correctly!");
+        assertTrue(solver.solve(), "Did not return false on impossible sudoku");
+
+    }
+    @org.junit.jupiter.api.Test
+    void solveImpossible() {
+        solver = new Solver(sudokuImpossible);
+        assertFalse(solver.solve(), "Did not return false on impossible sudoku");
 
     }
 

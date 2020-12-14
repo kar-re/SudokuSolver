@@ -119,7 +119,7 @@ public class Sudoku implements SudokuSolver {
 	 * Checks if the number nbr already exists in the column
 	 * 
 	 * @param col The column
-	 * @param nbr The number tested
+	 * @param number The number tested
 	 * @return true if the number already exists in column
 	 */
 	private boolean existsInCol(int col, int number) {
@@ -136,7 +136,7 @@ public class Sudoku implements SudokuSolver {
 	 * 
 	 * @param row The row
 	 * @param col The column
-	 * @param nbr The number tested
+	 * @param number The number tested
 	 * @return true if the number already exists in 3x3 box
 	 */
 	private boolean existsInBox(int row, int col, int number) {
@@ -250,7 +250,7 @@ public class Sudoku implements SudokuSolver {
 	/**
 	 * Fills in the numbers in numbers in the sudoku.
 	 * 
-	 * @param numbers The matrix with the numbers that should fill the sudoku
+	 * @param sud The matrix with the numbers that should fill the sudoku
 	 * @throws IllegalArgumentException if not all numbers in [0..9]
 	 **/
 	@Override
