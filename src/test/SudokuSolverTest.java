@@ -28,6 +28,17 @@ class SudokuSolverTest {
             {0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0}
     };
+    private int[][] sudokuImpossible2 = {
+            {0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0},
+            {1,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0},
+            {1,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0}
+    };
     /**
      * SudokuHard taken from
      * http://www.mathsphere.co.uk/downloads/sudoku/10203-hard.pdf
@@ -62,7 +73,7 @@ class SudokuSolverTest {
     void setUp() {
         solver = new Solver(sudokuBasic);
         solverHard = new Solver(sudokuHard);
-        solverImpossible = new Solver(sudokuImpossible);
+        solverImpossible = new Solver(sudokuImpossible2);
     }
 
     @org.junit.jupiter.api.AfterEach

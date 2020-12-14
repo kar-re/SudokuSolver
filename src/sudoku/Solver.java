@@ -48,7 +48,7 @@ public class Solver implements SudokuSolver {
 	}
 
 /**
- *Removes number at position row, col
+ *Gets number at position row, col
  * 
  * @param row	The row
  * @param col		The column
