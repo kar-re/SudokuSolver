@@ -116,7 +116,7 @@ public class Solver implements SudokuSolver {
 		}
 		if (getNumber(row, col) != 0) {
 			if(!trySetNumber(row,col, getNumber(row,col))) {
-				System.out.println("row is: " + row + " col is: " + col + " number is: " + getNumber(row,col));
+				//System.out.println("row is: " + row + " col is: " + col + " number is: " + getNumber(row,col));
 				return false;
 			}
 			return solve(row, col + 1);
