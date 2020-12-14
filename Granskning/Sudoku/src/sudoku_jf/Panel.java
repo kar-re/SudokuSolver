@@ -21,7 +21,7 @@ public class Panel extends JPanel {
 		color = true;
 		for (int row = 0; row < 9; row++) {
 			for (int col = 0; col < 9; col++) {
-				textField[row][col] = new JTextField(2); 
+				textField[row][col] = new JTextField(2);
 				paintSudoku(row, col);
 				if ((col + 1) % 3 == 0) {
 					color = !color; 

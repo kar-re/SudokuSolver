@@ -38,7 +38,7 @@ public class SudokuController {
             } catch (Exception ex) {
                 String error = ex.getMessage();
                 if (error == null)
-                    error = "Inputs måste vara mellan 1-9!";
+                    error = "Inputs must be numbers 1-9 only!";
                 JOptionPane.showMessageDialog(null,
                          error,
                         "Error",
@@ -49,7 +49,7 @@ public class SudokuController {
 
         //Clear button
         view.getClearButton().addActionListener(e -> {
-            System.out.println("Pressed clear");
+            //System.out.println("Pressed clear");
             clearGrid();
         });
         //Set default numbers

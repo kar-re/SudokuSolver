@@ -64,7 +64,7 @@ public class Sudoku implements SudokuSolver {
 				} else {
 					elapsedTime = System.currentTimeMillis() - startTime;
 					elapsedSeconds = elapsedTime / 1000;
-					if (elapsedSeconds > 0.1) {
+					if (elapsedSeconds > 1.1) {
 						return false;
 					}
 					if (solve(row, col + 1)) {
